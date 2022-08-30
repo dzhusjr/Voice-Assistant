@@ -1,0 +1,15 @@
+pip install pyttsx3
+pip install pafy
+pip install python-vlc 
+pip install wikipedia
+pip install re
+pip install python_weather
+pip install asyncio
+pip install datetime
+pip install pyjokes
+pip install winshell
+pip install speech_recognition
+pip install pywhatkit
+pip install youtube-dl
+pip install youtube-dl==2020.12.2         
+pip install gTTS
