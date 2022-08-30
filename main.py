@@ -23,8 +23,8 @@ from commands import commands_dict
 print('Starting...')
 #GUI
 root = Tk()
-photo = ImageTk.PhotoImage(Image.open(r"C:\Users\HCHUWI\Desktop\School_365\1.png").resize((50, 50)))
-photo1 = ImageTk.PhotoImage(Image.open(r"C:\Users\HCHUWI\Desktop\School_365\2.png").resize((50, 50)))
+photo = ImageTk.PhotoImage(Image.open("1.png").resize((50, 50)))
+photo1 = ImageTk.PhotoImage(Image.open("2.png").resize((50, 50)))
 root.geometry('50x50+10-10')
 root.overrideredirect(1)
 root.wm_attributes("-topmost", True)
@@ -54,7 +54,7 @@ button = Button(root, image = photo,borderwidth=0,bg='black',activebackground='b
 button.pack()
 #-----------
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = "3"
-data_path = "voice_assistant\data.json"
+data_path = "data.json"
 media = None
 user32 = windll.user32
 ureg = UnitRegistry()
@@ -122,12 +122,12 @@ def create_task(query):
         talk('What to write?')
         print('Listening...')
         task = listen_command(False)
-    with open('voice_assistant\todo-list.txt', 'a', encoding="utf-8") as file:
+    with open('todo-list.txt', 'a', encoding="utf-8") as file:
         file.write(f'❗️ {task}\n')
     talk(f'Task {task} added to todo-list!')
 
 def clear_todo_list():
-    f = open('voice_assistant\todo-list.txt', 'w') 
+    f = open('todo-list.txt', 'w') 
     f.close()
     talk('Your to-do list is cleared')
 
@@ -177,7 +177,7 @@ def speed_test():
     
 def open_opera():
     talk("Here is Opera")
-    os.startfile("C:\\Users\\HCHUWI\\AppData\\Local\\Programs\\Opera GX\\launcher.exe")
+    os.startfile("C:\\Users\\User\\AppData\\Local\\Programs\\Opera GX\\launcher.exe")
 
 async def getweather(region):
     client = python_weather.Client(format=python_weather.METRIC)
