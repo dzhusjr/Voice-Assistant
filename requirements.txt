@@ -1,0 +1,14 @@
+pafy==0.5.5
+Pillow==9.2.0
+pint==0.19.2
+PyAutoGUI==0.9.53
+pyjokes==0.6.0
+python_weather==0.4.1
+pyttsx3==2.90
+pywhatkit==5.4
+pywin32==303
+quantulum3==0.7.10
+speedtest==0.0.1
+wikipedia==1.4.0
+win32gui==221.6
+winshell==0.6
