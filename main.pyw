@@ -23,8 +23,8 @@ from commands import commands_dict
 print("Starting...")
 # GUI
 root = Tk()
-photo = ImageTk.PhotoImage(Image.open("1.png").resize((40, 40)))
-photo1 = ImageTk.PhotoImage(Image.open("2.png").resize((40, 40)))
+photo = ImageTk.PhotoImage(Image.open(r"C:\Users\romeo\Desktop\Code\Python\projects\voice_assistant\1.png").resize((40, 40)))
+photo1 = ImageTk.PhotoImage(Image.open(r"C:\Users\romeo\Desktop\Code\Python\projects\voice_assistant\2.png").resize((40, 40)))
 root.geometry("40x40+5-5")
 root.overrideredirect(1)
 root.wm_attributes("-topmost", True)
@@ -57,7 +57,7 @@ button = Button(root, image=photo, borderwidth=0, bg="black", activebackground="
 button.pack()
 # -----------
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
-data_path = "data.json"
+data_path = r"C:\Users\romeo\Desktop\Code\Python\projects\voice_assistant\data.json"
 media = None
 user32 = windll.user32
 ureg = UnitRegistry()
@@ -99,8 +99,12 @@ def talk(text):
 def listen_command(printing=True):
     if printing:
         print("Listening...")
+    button.configure(image=photo1)
+    root.update()
     with Microphone() as mic:
         audio = r.listen(source=mic, timeout=1, phrase_time_limit=5)
+    button.configure(image=photo)
+    root.update()
     try:
         if printing:
             print("Recognizing...")
@@ -114,8 +118,6 @@ def listen_command(printing=True):
 def respond():
     global assname, listen
     query = listen_command()
-    button.configure(image=photo)
-    root.update()
     # query = input('You:')
     words = query.split(" ")
     for k, v in commands_dict.items():
@@ -123,7 +125,7 @@ def respond():
             exec(k)
             break
     else:
-        talk("I didn't get that!")
+        talk("What?")
     listen = False
 
 
@@ -134,11 +136,7 @@ def create_task(query):
     else:
         talk("What to write?")
         print("Listening...")
-        button.configure(image=photo1)
-        root.update()
         task = listen_command(False)
-        button.configure(image=photo)
-        root.update()
     with open("todo-list.txt", "a", encoding="utf-8") as file:
         file.write(f"❗️ {task}\n")
     talk(f"Task {task} added to todo-list!")
@@ -215,17 +213,17 @@ def speed_test():
 
 def open_opera():
     talk("Here is Opera")
-    os.startfile("C:\\Users\\User\\AppData\\Local\\Programs\\Opera GX\\launcher.exe")
+    os.startfile("C:\\Users\\romeo\\AppData\\Local\\Programs\\Opera GX\\launcher.exe")
 
 
 def open_discord():
     talk("Here is discord")
-    os.startfile("C:\\Users\\User\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Discord Inc\\Discord.lnk")
+    os.startfile("C:\\Users\\romeo\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Discord Inc\\Discord.lnk")
 
 
 def open_vscode():
     talk("Here is VS Code. Good coding!")
-    os.startfile("C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe")
+    os.startfile("C:\\Users\\romeo\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe")
 
 
 async def getweather(region):
@@ -252,11 +250,7 @@ def change_assname(words):
         new_assname = words[words.index("to") + 1]
     except:
         talk("What would you like to call me?")
-        button.configure(image=photo1)
-        root.update()
         new_assname = listen_command(False)
-        button.configure(image=photo1)
-        root.update()
     data["assname"] = new_assname
     update_data(data)
     talk("Thanks for naming me")
@@ -265,30 +259,20 @@ def change_assname(words):
 def shutdown():
     talk("Are you sure you want to shutdown your computer?")
     print("Listening...")
-    button.configure(image=photo1)
-    root.update()
     if listen_command(False) == "yes":
         talk("Hold On a Sec ! Your system is on its way to shut down")
         os.system("shutdown /s /t 1")
     else:
         talk("Ok i won't do that")
-    button.configure(image=photo)
-    root.update()
-
 
 def restart():
     talk("Are you sure you want to restart your computer?")
     print("Listening...")
-    button.configure(image=photo1)
-    root.update()
     if listen_command(False) == "yes":
         talk("Restarting system...")
         os.system("shutdown /r /t 1")
     else:
         talk("Ok i won't do that")
-    button.configure(image=photo)
-    root.update()
-
 
 # Run the code
 if __name__ == "__main__":
